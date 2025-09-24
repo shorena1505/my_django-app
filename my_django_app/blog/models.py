@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 
 class Blog(models.Model):
@@ -36,6 +38,12 @@ class Author(models.Model):
     first_name=models.CharField(verbose_name='სახელი',max_length=100)
     last_name=models.CharField(verbose_name='გვარი',max_length=100)
     email=models.CharField(verbose_name='იმეილი')
+    birth_date = models.CharField(verbose_name='birth date', null=True, max_length=100)
+
+    @property
+    def age(self):
+        today = date.today()
+        return today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
 
     class Meta:
         verbose_name = "Author"
