@@ -3,6 +3,7 @@ from datetime import date
 from django.db import models
 
 class Blog(models.Model):
+    slug = models.SlugField(verbose_name='slug', unique=True)
     title = models.CharField(verbose_name='სათაური', max_length=100)
     text = models.TextField(verbose_name='ტექსტი')
     is_active = models.BooleanField(verbose_name='აქტიურია', null=True)
@@ -38,7 +39,11 @@ class Author(models.Model):
     first_name=models.CharField(verbose_name='სახელი',max_length=100)
     last_name=models.CharField(verbose_name='გვარი',max_length=100)
     email=models.CharField(verbose_name='იმეილი')
-    birth_date = models.CharField(verbose_name='birth date', null=True, max_length=100)
+    birth_date = models.DateField(verbose_name='birth date', null=True, max_length=100)
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
     @property
     def age(self):
