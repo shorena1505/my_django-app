@@ -3,18 +3,19 @@ from datetime import date
 from django.db import models
 
 class Blog(models.Model):
+    authors = models.ManyToManyField(to="Author", related_query_name="blog", verbose_name="ავტორი")
     slug = models.SlugField(verbose_name='slug', unique=True)
     title = models.CharField(verbose_name='სათაური', max_length=100)
     text = models.TextField(verbose_name='ტექსტი')
     is_active = models.BooleanField(verbose_name='აქტიურია', null=True)
     create_at = models.DateTimeField(auto_now_add=True, null=True)
-    authors = models.ManyToManyField(to="Author",related_query_name ="blog", verbose_name="ავტორი")
+    order = models.PositiveIntegerField(verbose_name='Order', default=0)
     likes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Blog"
         verbose_name_plural = "Blogs"
-        ordering = ['title']
+        ordering = ['order', 'title']
 
 
 
@@ -24,12 +25,13 @@ class Blog(models.Model):
 
 class BlogImage(models.Model):
     blog = models.ForeignKey(Blog, verbose_name='Blog Post', on_delete=models.CASCADE)
-
     image = models.ImageField(verbose_name="Image", upload_to='blog_images/')
+    order = models.PositiveIntegerField(verbose_name='Order', default=0)
 
     class Meta:
         verbose_name = "Blog Image"
         verbose_name_plural = "Blog Images"
+        ordering = ['order']
 
     def __str__(self):
         return f"{self.blog.title} - {self.blog.title}"

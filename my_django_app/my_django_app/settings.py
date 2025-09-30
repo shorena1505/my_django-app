@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'adminsortable2',
+    'import_export',
+
     'first_app',
     'blog'
 

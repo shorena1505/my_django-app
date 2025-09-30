@@ -1,2 +1,8 @@
+django-import-export
+django-import-export
+django-import-export
+django-import-export
 Django==5.2.6
 pillow==11.3.0
+django-admin-sortable2==2.2.8
+django-import-export==4.3.10
