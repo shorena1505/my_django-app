@@ -23,6 +23,7 @@ import first_app
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('_nested_admin/', include('nested_admin.urls')),
 
     path('first_app/', include('first_app.urls')),
 ]

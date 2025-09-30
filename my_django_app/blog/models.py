@@ -61,4 +61,15 @@ class Author(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+class BlogImageDescription(models.Model):
+        blog_image = models.ForeignKey(BlogImage, verbose_name='Blog Image', related_name='descriptions', on_delete=models.CASCADE)
+
+        text = models.TextField(verbose_name='Text')
+
+        class Meta:
+            verbose_name = "Blog Image Description"
+            verbose_name_plural = "Blog Image Descriptions"
+
+        def __str__(self):
+            return f"Description for {self.blog_image.blog.title}"
 

@@ -6,3 +6,4 @@ Django==5.2.6
 pillow==11.3.0
 django-admin-sortable2==2.2.8
 django-import-export==4.3.10
+django-nested-admin==4.1.4

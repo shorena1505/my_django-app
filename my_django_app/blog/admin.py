@@ -1,14 +1,21 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from import_export.admin import ImportExportModelAdmin
+from nested_admin.nested import NestedTabularInline, NestedModelAdmin
 
-from blog.models import Blog, BlogImage, Author
+from blog.models import Blog, BlogImage, Author, BlogImageDescription
 from blog.resources import BlogResource
 
-
-class BlogImageInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = BlogImage
+class BlogImageDescriptionInline(NestedTabularInline):
+    model = BlogImageDescription
     extra = 1
+
+
+class BlogImageInline(NestedTabularInline):
+    model = BlogImage
+    inlines = [BlogImageDescriptionInline]
+    extra = 1
+    fk_name = 'blog'
 
 
 
@@ -17,7 +24,7 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'age')
 
 
-class BlogAdmin(ImportExportModelAdmin, SortableAdminMixin):
+class BlogAdmin(ImportExportModelAdmin, NestedModelAdmin):
     resource_class = BlogResource
     list_display = ('title', 'is_active', 'create_at')
     list_filter = ('is_active','authors')
