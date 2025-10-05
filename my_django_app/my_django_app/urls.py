@@ -26,6 +26,7 @@ urlpatterns = [
     path('_nested_admin/', include('nested_admin.urls')),
 
     path('first_app/', include('first_app.urls')),
+    path('blog/', include('blog.urls')),
 ]
 
 if settings.DEBUG:
